@@ -1,0 +1,22 @@
+version: '1.0'
+
+stages:
+  - clone
+  - build
+
+steps:
+  clone:
+    title: Cloning repository
+    type: git-clone
+    repo: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
+    revision: ${{CF_REVISION}}
+    stage: clone
+
+  build:
+    title: Building Docker image
+    type: build
+    image_name: pov49030711/${{CF_REPO_NAME}}
+    working_directory: ${{clone}}
+    tag: ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+    dockerfile: Dockerfile
+    stage: build

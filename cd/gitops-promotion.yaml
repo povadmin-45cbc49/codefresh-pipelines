@@ -1,0 +1,27 @@
+version: '1.0'
+
+#TODO cancel existing pipeline + triggers waiting for approval
+
+stages:
+  - clone
+  - find_candidate
+  - wait_for_approval
+  - update_candidate
+  - commit_candidate
+
+steps:
+# TODO Add approval
+#  approval:
+
+  clone:
+    title: Cloning repository
+    type: git-clone
+    repo: ${{CF_REPO_OWNER}}/${{TARGET_REPO}}
+    revision: main
+    stage: clone
+# TODO Add fetch
+#  fetch:
+# TODO Add update
+#  update:
+# TODO Add commit
+#  commit:
