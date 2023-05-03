@@ -3,6 +3,7 @@ version: '1.0'
 stages:
   - clone
   - build
+  - test
 
 steps:
   clone:
@@ -20,3 +21,10 @@ steps:
     tag: ${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
     dockerfile: Dockerfile
     stage: build
+
+  test:
+    title: Starting container using built image
+    image: ${{build}}
+    commands:
+      - echo "Container Running, no tests to run."
+    stage: test
