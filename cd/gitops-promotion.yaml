@@ -57,7 +57,7 @@ steps:
   fetch_candidate_image_tag:
     title: Fetching Candidate Image Tag
     type: freestyle
-    image: quay.io/codefresh/cli
+    image: mikefarah/yq:4
     working_directory: ${{clone_source_repo}}
     commands:
       - cf_export CANDIDATE_IMAGE_TAG=$(cat ${{CANDIDATE_SOURCE}} | yq ${{SOURCE_FILE_IMAGE_TAG_PLACEMENT}} | awk '{print tolower($0)}')
