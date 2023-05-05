@@ -48,7 +48,7 @@ steps:
     commands:
       - |-
         if [ "$SOURCE_FILE" ] ; then
-            cf_export CANDIDATE_SOURCE=SOURCE_FILE
+            cf_export CANDIDATE_SOURCE=$SOURCE_FILE
         else
             cf_export CANDIDATE_IMAGE_TAG=$(echo "$CF_PULL_REQUEST_HEAD_BRANCH-$CF_PULL_REQUEST_HEAD_COMMIT_SHA" | awk '{print tolower($0)}')
         fi
