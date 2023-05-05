@@ -13,7 +13,7 @@ hooks:
               echo "Restarting from Failed Steps is NOT Permitted by Policy"
               exit 1
           fi
-        - codefresh get builds --pipeline-name=${{CF_PIPELINE_NAME}} -o json | jq -c '[ .[] | select( .status | contains("pending-approval")) | select( .["pipeline-trigger-id"] | contains("${{CF_PIPELINE_TRIGGER_ID}}")) | .id ]' |  jq -c '.[]' | xargs -n 1 codefresh terminate || echo "No Pending Builds Found."
+        - codefresh get builds --pipeline-name="${{CF_PIPELINE_NAME}}" -o json | jq -c '[ .[] | select( .status | contains("pending-approval")) | select( .["pipeline-trigger-id"] | contains("${{CF_PIPELINE_TRIGGER_ID}}")) | .id ]' |  jq -c '.[]' | xargs -n 1 codefresh terminate || echo "No Pending Builds Found."
 
 stages:
   - clone
