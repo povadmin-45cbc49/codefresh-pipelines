@@ -32,6 +32,8 @@ steps:
     stage: test
 
   convert_branch_to_lower:
+    title: Converting branch to lower case
+    type: freestyle
     image: alpine
     commands:
       - cf_export CF_BRANCH_TAG_NORMALIZED_LOWER=$(echo "${{CF_BRANCH_TAG_NORMALIZED}}" | awk '{print tolower($0)}')
