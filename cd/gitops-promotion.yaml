@@ -106,7 +106,6 @@ steps:
   commit_and_push:
     title: Commit manifest
     type: git-commit
-    stage: "gitops"
     arguments:
       repo: ${{CF_REPO_OWNER}}/${{TARGER_REPO}}
       git: github
