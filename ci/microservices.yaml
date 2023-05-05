@@ -4,6 +4,7 @@ stages:
   - clone
   - build
   - test
+  - report
 
 steps:
   clone:
@@ -29,3 +30,19 @@ steps:
     commands:
       - echo "Container Running, no tests to run."
     stage: test
+
+  report:
+    title: Report image for GitOps
+    type: codefresh-report-image
+    working_directory: /code
+    stage: report
+    arguments:
+      CF_API_KEY: ${{CF_API_KEY}}
+      CF_IMAGE: pov49030711/${{CF_REPO_NAME}}:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
+      CF_CONTAINER_REGISTRY_INTEGRATION: dockerhub
+      CF_RUNTIME_NAME: codefresh-hosted
+      CF_GIT_REPO: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
+      CF_GIT_BRANCH: ${{CF_BRANCH}}
+      CF_ISSUE_TRACKING_INTEGRATION: cf-demo-jira
+      CF_JIRA_MESSAGE: ${{CF_BRANCH}}
+      CF_JIRA_PROJECT_PREFIX: PD1
