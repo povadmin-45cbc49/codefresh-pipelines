@@ -73,12 +73,17 @@ steps:
     image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
+      - echo "Before Changes"
+      - cat ${{TARGET_FILE}}
       - yq -i '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} = "${{CANDIDATE_IMAGE_TAG}}"' ${{TARGET_FILE}}
+      - echo "After Changes"
+      - cat ${{TARGET_FILE}}
     stage: report_update_plan
-    annotations:
-      set:
-        - annotations:
-          - candidate_image_tag: ${{CANDIDATE_IMAGE_TAG}}
+    on_success:
+      annotations:
+        set:
+          - annotations:
+            - candidate_image_tag: ${{CANDIDATE_IMAGE_TAG}}
 
   wait_for_approval:
     title: Review Candidate Report and Approve Update Plan for Release.
@@ -100,7 +105,11 @@ steps:
     image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
+      - echo "Before Changes"
+      - cat ${{TARGET_FILE}}
       - yq -i '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} = "${{CANDIDATE_IMAGE_TAG}}"' ${{TARGET_FILE}}
+      - echo "After Changes"
+      - cat ${{TARGET_FILE}}
     stage: promote_candidate
 
   commit_and_push:
