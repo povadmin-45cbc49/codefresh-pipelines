@@ -70,10 +70,10 @@ steps:
   report_planned_candidate_updates:
     title: Report Release Candidate
     type: freestyle
-    image: quay.io/codefresh/cli
+    image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
-      - yq w ${{TARGET_FILE}} '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}}' ${{CANDIDATE_IMAGE_TAG}}
+      - yq w ${{TARGET_FILE}} ${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} ${{CANDIDATE_IMAGE_TAG}}
     stage: report_update_plan
     annotations:
       set:
@@ -97,7 +97,7 @@ steps:
   update_target_environment:
     title: Update Target Environment
     type: freestyle
-    image: quay.io/codefresh/cli
+    image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
       - yq w -i ${{TARGET_FILE}} ${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} ${{CANDIDATE_IMAGE_TAG}}
