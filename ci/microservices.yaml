@@ -31,13 +31,19 @@ steps:
       - echo "Container Running, no tests to run."
     stage: test
 
+  convert_branch_to_lower:
+    image: alpine
+    commands:
+      - cf_export CF_BRANCH_TAG_NORMALIZED_LOWER=$(echo "${{CF_BRANCH_TAG_NORMALIZED}}" | awk '{print tolower($0)}')
+    stage: report
+
   report:
     title: Report image for GitOps
     type: codefresh-report-image
     working_directory: /code
     arguments:
       CF_API_KEY: ${{CF_API_KEY}}
-      CF_IMAGE: docker.io/pov49030711/${{CF_REPO_NAME}}:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_REVISION}}
+      CF_IMAGE: docker.io/pov49030711/${{CF_REPO_NAME}}:${{CF_BRANCH_TAG_NORMALIZED_LOWER}}-${{CF_REVISION}}
       CF_CONTAINER_REGISTRY_INTEGRATION: dockerhub
       CF_RUNTIME_NAME: codefresh-hosted
       CF_GIT_REPO: ${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}
