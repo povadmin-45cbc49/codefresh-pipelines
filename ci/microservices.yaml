@@ -35,7 +35,6 @@ steps:
     title: Report image for GitOps
     type: codefresh-report-image
     working_directory: /code
-    stage: report
     arguments:
       CF_API_KEY: ${{CF_API_KEY}}
       CF_IMAGE: pov49030711/${{CF_REPO_NAME}}:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}
@@ -46,3 +45,4 @@ steps:
       CF_ISSUE_TRACKING_INTEGRATION: cf-demo-jira
       CF_JIRA_MESSAGE: ${{CF_BRANCH}}
       CF_JIRA_PROJECT_PREFIX: PD1
+    stage: report
