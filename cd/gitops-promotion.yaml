@@ -73,7 +73,7 @@ steps:
     image: quay.io/codefresh/cli
     working_directory: ${{clone_target_repo}}
     commands:
-      - yq w ${{TARGET_FILE}} '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}}'' ${{CANDIDATE_IMAGE_TAG}}
+      - yq w ${{TARGET_FILE}} '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}}' ${{CANDIDATE_IMAGE_TAG}}
     stage: report_update_plan
     annotations:
       set:
