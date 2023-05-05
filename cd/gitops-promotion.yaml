@@ -73,7 +73,7 @@ steps:
     image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
-      - yq w ${{TARGET_FILE}} ${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} ${{CANDIDATE_IMAGE_TAG}}
+      - yq -i '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}}=${{CANDIDATE_IMAGE_TAG}}' ${{TARGET_FILE}}
     stage: report_update_plan
     annotations:
       set:
@@ -100,7 +100,7 @@ steps:
     image: mikefarah/yq:4
     working_directory: ${{clone_target_repo}}
     commands:
-      - yq w -i ${{TARGET_FILE}} ${{TARGET_FILE_IMAGE_TAG_PLACEMENT}} ${{CANDIDATE_IMAGE_TAG}}
+      - yq -i '${{TARGET_FILE_IMAGE_TAG_PLACEMENT}}=${{CANDIDATE_IMAGE_TAG}}' ${{TARGET_FILE}}
     stage: promote_candidate
 
   commit_and_push:
